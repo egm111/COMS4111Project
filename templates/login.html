@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>NYC Safe Bite</h1>
+<p>Welcome to NYC Safe Bite! This platform helps you explore restaurants across New York City while keeping your dietary needs and allergen concerns in mind. Discover personalized recommendations, view allergen-friendly menu items, and share reviews to help others make safe and delicious dining choices.</p>
+
+<h2>Login</h2>
+<form method="POST" action="{{ url_for('login') }}">
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username" required>
+    
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required>
+    
+    <button type="submit">Login</button>
+</form>
+<p>Don't have an account? <a href="{{ url_for('register') }}">Register here</a></p>
+{% endblock %}
