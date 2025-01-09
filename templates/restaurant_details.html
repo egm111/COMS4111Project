@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>{{ restaurant.name }}</h2>
+<p><strong>Location:</strong> {{ restaurant.location or "Not specified" }}</p>
+<p><strong>Cuisine Type:</strong> {{ cuisine_types | join(', ') }}</p>
+<p><strong>Diet Type:</strong> {{ restaurant.diet or "Not specified" }}</p>
+<p><strong>Distance from you:</strong> {{ distance | round(2) if distance else "Not available" }} miles</p>
+
+<h3>Menu</h3>
+<ul>
+    {% for item in menu_items %}
+        <li>
+            <strong>{{ item.item_name }}</strong> - ${{ item.price | round(2) }}<br>
+            Ingredients: 
+            {% for ingredient in item.ingredients %}
+                {% if ingredient in allergens %}
+                    <span style="color: red; font-weight: bold;">{{ ingredient }}</span>
+                {% else %}
+                    {{ ingredient }}
+                {% endif %}
+                {% if not loop.last %}, {% endif %}
+            {% endfor %}
+            {% if item.contains_allergen %}
+                <strong>(Contains allergen)</strong>
+            {% endif %}
+        </li>
+    {% endfor %}
+</ul>
+
+<h3>{{ restaurant.name }}</h3>
+{% if is_saved %}
+    <form method="POST">
+        <input type="hidden" name="action" value="unsave_restaurant">
+        <button type="submit">Unsave this Restaurant</button>
+    </form>
+{% else %}
+    <form method="POST">
+        <input type="hidden" name="action" value="save_restaurant">
+        <button type="submit">Save this Restaurant</button>
+    </form>
+{% endif %}
+
+<h3>Reviews</h3>
+{% if reviews %}
+    <ul>
+        {% for review in reviews %}
+            <li>
+                <strong>{{ review.name }}</strong> rated <strong>{{ review.rating }}</strong>/5
+                on <em>{{ review.dt }}</em><br>{{ review.contents }}
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No reviews yet.</p>
+{% endif %}
+
+<h3>Write a Review</h3>
+<form method="POST">
+    <label for="review_content">Your Review:</label>
+    <textarea name="review_content" id="review_content" required></textarea>
+    
+    <label for="rating">Rating (1-5):</label>
+    <input type="number" name="rating" id="rating" min="1" max="5" required>
+    
+    <button type="submit" name="write_review">Submit Review</button>
+</form>
+
+<a href="{{ url_for('customer_dashboard') }}">Back to Dashboard</a>
+{% endblock %}
