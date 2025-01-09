@@ -1,2 +1,8 @@
 # COMS4111Project
 NYC Restaurant Allergens Finder Program
+
+
+This application provides users with restaurants located in NYC that meet their specific dietary preferences and indicates menu items that contain their specific allergy restrictions. The entities are Users, Admin, Customer, Review, Restaurant, Allergens, Menu_Item and Ingredients. A user is either an Admin or a Customer. Only Admins can add restaurants and a boolean attribute employee_id is used to distinguish an admin from a customer. A Customer has a photo, their location, and a list of their allergens as attributes. A Customer can filter for restaurants by cuisine, diet name, and location which are the attributes of Restaurant in addition to its primary key rest_name. Only restaurants within their desired location, diet type, and cuisine will show up. When a Customer clicks on a restaurant, they will see the menu items and the ingredients highlighted with the allergens from their profile. If the customer likes the restaurant, they can save it to their profile to look back at. Customers can write reviews for multiple restaurants and reviews will remain even if a Customer deletes their account. Restaurants have at least one menu_Item and menu_Item is owned by at most one restaurant. Menu_Item has a name, price, and a boolean for if it’s a Customer’s allergen. Menu_Item includes the entity Ingredients which has ingredient name as a primary key and a boolean for if it’s an allergen that the Customer has. 
+
+
+<img width="498" alt="Screenshot 2025-01-09 at 4 05 00 PM" src="https://github.com/user-attachments/assets/fdb79096-d6f8-4c14-ac47-c2862fc8c549" />
